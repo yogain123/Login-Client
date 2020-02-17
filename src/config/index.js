@@ -1,1 +1,1 @@
-export const STATIC_URL = "https://login-client123.herokuapp.com/";
+export const STATIC_URL = "https://login-server123.herokuapp.com/";
