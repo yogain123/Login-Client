@@ -19,9 +19,13 @@ class Home extends Component {
   render() {
     return (
       <>
-        <div class="container">
+        <div class="container" style={{ marginTop: "50px" }}>
           <div>This is Dashboard</div>
-          <button type="button" onClick={() => this.logout()}>
+          <button
+            style={{ marginTop: "20px" }}
+            type="button"
+            onClick={() => this.logout()}
+          >
             {this.state.logout}
           </button>
         </div>

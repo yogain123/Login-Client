@@ -22,9 +22,13 @@ class Home extends Component {
     let query = qp.toObject(this.props.location.search.substring(1));
     return (
       <>
-        <div class="container">
+        <div class="container" style={{ marginTop: "20px" }}>
           <div>This is Home Page, Welcome {query.email}</div>
-          <button type="button" onClick={() => this.logout()}>
+          <button
+            style={{ marginTop: "20px" }}
+            type="button"
+            onClick={() => this.logout()}
+          >
             {this.state.logout}
           </button>
         </div>
