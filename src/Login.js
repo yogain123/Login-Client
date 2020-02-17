@@ -6,16 +6,24 @@ import { connect } from "react-redux";
 import qp from "query-parse";
 
 class Login extends Component {
-  state = { email: "", password: "" };
+  state = { submit: "Submit", mail: "", password: "" };
   emailRef = React.createRef();
 
   async onSubmit(event) {
     event.preventDefault();
+    this.setState({ submit: <div class="spinner-border"></div> });
     let query = qp.toObject(this.props.location.search.substring(1));
     let pathing = query.preserved || `/home?email=${this.state.email}`;
-    this.props.LoginAction(this.state.email, this.state.password, response => {
-      this.props.history.push(pathing);
-    });
+    this.props.LoginAction(
+      this.state.email,
+      this.state.password,
+      response => {
+        this.props.history.push(pathing);
+      },
+      () => {
+        this.setState({ submit: "Log Out" });
+      }
+    );
   }
 
   componentDidMount() {
@@ -81,13 +89,15 @@ class Login extends Component {
                       </span>
                     </label>
                     <br />
-                    <input
-                      type="submit"
+                    <button
+                      type="button"
                       name="submit"
                       className="btn btn-info btn-md"
-                      value="submit"
+                      value={this.state.submit}
                       onClick={event => this.onSubmit(event)}
-                    />
+                    >
+                      {this.state.submit}
+                    </button>
                   </div>
                   <div id="register-link" className="text-right">
                     <Link to="/Register" className="text-info">

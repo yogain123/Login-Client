@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { STATIC_URL } from "./config";
 
 class Register extends Component {
-  state = { email: "", password: "", name: "" };
+  state = { register: "Register", email: "", password: "", name: "" };
   emailRef = React.createRef();
 
   componentDidMount() {
@@ -13,6 +13,7 @@ class Register extends Component {
 
   async onSubmit(event) {
     event.preventDefault();
+    this.setState({ register: <div class="spinner-border"></div> });
     let { email, password, name } = this.state;
     let response = await axios.post(`${STATIC_URL}register`, {
       email,
@@ -23,6 +24,7 @@ class Register extends Component {
     if (response.status) {
       this.props.history.push("/");
     } else {
+      this.setState({ register: "Register" });
       alert("Something went wrong");
     }
   }
@@ -98,13 +100,15 @@ class Register extends Component {
                       </span>
                     </label>
                     <br />
-                    <input
-                      type="submit"
+                    <button
+                      type="button"
                       name="submit"
                       className="btn btn-info btn-md"
                       value="submit"
                       onClick={event => this.onSubmit(event)}
-                    />
+                    >
+                      {this.state.register}
+                    </button>
                   </div>
                   <div id="register-link" className="text-right">
                     <Link to="/" className="text-info">

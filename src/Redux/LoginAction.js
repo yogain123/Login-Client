@@ -1,7 +1,7 @@
 import axios from "axios";
 //import history from "../History";
 import { STATIC_URL } from "../config";
-export function LoginAction(email, password, callback) {
+export function LoginAction(email, password, callback1, callback2) {
   return async function(dispatch) {
     let reqData = { email, password };
     let res = await axios.post(`${STATIC_URL}login`, reqData);
@@ -10,10 +10,10 @@ export function LoginAction(email, password, callback) {
         type: "LOGIN_STATUS_CHECK",
         payload: res.data
       });
-      debugger;
       localStorage.setItem("apiKey", res.data.apiKey);
-      callback();
+      callback1();
     } else {
+      callback2();
       alert("Wrong Credentials");
     }
   };

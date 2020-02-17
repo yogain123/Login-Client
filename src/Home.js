@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { LogoutAction } from "./Redux/LoginAction";
 
 class Home extends Component {
+  state = { logout: "Log Out" };
   componentDidMount() {
     if (!this.props.LoginDetails.isLoggedIn) {
       this.props.history.push(`/?preserved=${this.props.match.path}`);
@@ -11,6 +12,7 @@ class Home extends Component {
   }
 
   logout() {
+    this.setState({ logout: <div class="spinner-border"></div> });
     this.props.LogoutAction(() => {
       this.props.history.push("/");
     });
@@ -23,7 +25,7 @@ class Home extends Component {
         <div class="container">
           <div>This is Home Page, Welcome {query.email}</div>
           <button type="button" onClick={() => this.logout()}>
-            Log out
+            {this.state.logout}
           </button>
         </div>
       </>
