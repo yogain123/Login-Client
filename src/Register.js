@@ -34,7 +34,7 @@ class Register extends Component {
             <div id="login-column" className="col-md-6">
               <div id="login-box" className="col-md-12">
                 <form id="login-form" className="form">
-                  <h3 className="text-center text-info">Login</h3>
+                  <h3 className="text-center text-info">Register</h3>
                   <div className="form-group">
                     <label htmlFor="email" className="text-info">
                       Email:
