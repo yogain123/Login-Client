@@ -7,6 +7,8 @@ import qp from "query-parse";
 
 class Login extends Component {
   state = { email: "", password: "" };
+  emailRef = React.createRef();
+
   async onSubmit(event) {
     event.preventDefault();
     let query = qp.toObject(this.props.location.search.substring(1));
@@ -17,6 +19,7 @@ class Login extends Component {
   }
 
   componentDidMount() {
+    this.emailRef.current.focus();
     if (this.props.LoginDetails.isLoggedIn) {
       this.props.history.push("/dashboard");
     }
@@ -41,6 +44,7 @@ class Login extends Component {
                     </label>
                     <br />
                     <input
+                      ref={this.emailRef}
                       type="text"
                       name="username"
                       id="username"

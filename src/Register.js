@@ -5,6 +5,11 @@ import { STATIC_URL } from "./config";
 
 class Register extends Component {
   state = { email: "", password: "", name: "" };
+  emailRef = React.createRef();
+
+  componentDidMount() {
+    this.emailRef.current.focus();
+  }
 
   async onSubmit(event) {
     event.preventDefault();
@@ -41,6 +46,7 @@ class Register extends Component {
                     </label>
                     <br />
                     <input
+                      ref={this.emailRef}
                       type="text"
                       name="email"
                       id="email"
