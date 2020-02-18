@@ -1,38 +1,41 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
-import { STATIC_URL } from "./config";
+import { LoginAction } from "../Redux/Actions/LoginAction";
+import { connect } from "react-redux";
+import qp from "query-parse";
 
-class Register extends Component {
-  state = { register: "Register", email: "", password: "", name: "" };
+class Login extends Component {
+  state = { submit: "Submit", mail: "", password: "" };
   emailRef = React.createRef();
-
-  componentDidMount() {
-    this.emailRef.current.focus();
-  }
 
   async onSubmit(event) {
     event.preventDefault();
-    this.setState({ register: <div class="spinner-border"></div> });
-    let { email, password, name } = this.state;
-    let response = await axios.post(`${STATIC_URL}register`, {
-      email,
-      password,
-      name
-    });
-    response = response.data;
-    if (response.status) {
-      this.props.history.push("/");
-    } else {
-      this.setState({ register: "Register" });
-      alert("Something went wrong");
+    this.setState({ submit: <div class="spinner-border"></div> });
+    let query = qp.toObject(this.props.location.search.substring(1));
+    let pathing = query.preserved || `/home?email=${this.state.email}`;
+    this.props.LoginAction(
+      this.state.email,
+      this.state.password,
+      response => {
+        this.props.history.push(pathing);
+      },
+      () => {
+        this.setState({ submit: "Log Out" });
+      }
+    );
+  }
+
+  componentDidMount() {
+    this.emailRef.current.focus();
+    if (this.props.LoginDetails.isLoggedIn) {
+      this.props.history.push("/dashboard");
     }
   }
 
   render() {
     return (
       <div id="login">
-        <h3 className="text-center text-white pt-5">Register</h3>
+        <h3 className="text-center text-white pt-5">Login</h3>
         <div className="container">
           <div
             id="login-row"
@@ -41,35 +44,19 @@ class Register extends Component {
             <div id="login-column" className="col-md-6">
               <div id="login-box" className="col-md-12">
                 <form id="login-form" className="form">
-                  <h3 className="text-center text-info">Register</h3>
                   <div className="form-group">
-                    <label htmlFor="email" className="text-info">
+                    <label htmlFor="username" className="text-info">
                       Email:
                     </label>
                     <br />
                     <input
                       ref={this.emailRef}
                       type="text"
-                      name="email"
-                      id="email"
+                      name="username"
+                      id="username"
                       className="form-control"
                       onChange={event =>
                         this.setState({ email: event.target.value })
-                      }
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="name" className="text-info">
-                      Name:
-                    </label>
-                    <br />
-                    <input
-                      type="text"
-                      name="name"
-                      id="name"
-                      className="form-control"
-                      onChange={event =>
-                        this.setState({ name: event.target.value })
                       }
                     />
                   </div>
@@ -101,18 +88,18 @@ class Register extends Component {
                     </label>
                     <br />
                     <button
-                      type="button"
+                      type="submit"
                       name="submit"
                       className="btn btn-info btn-md"
-                      value="submit"
+                      value={this.state.submit}
                       onClick={event => this.onSubmit(event)}
                     >
-                      {this.state.register}
+                      {this.state.submit}
                     </button>
                   </div>
                   <div id="register-link" className="text-right">
-                    <Link to="/" className="text-info">
-                      Login
+                    <Link to="/Register" className="text-info">
+                      Register here
                     </Link>
                   </div>
                 </form>
@@ -125,4 +112,10 @@ class Register extends Component {
   }
 }
 
-export default Register;
+function mapStateToProps(states) {
+  return {
+    LoginDetails: states.LoginReducer
+  };
+}
+
+export default connect(mapStateToProps, { LoginAction })(Login);

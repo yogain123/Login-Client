@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import Login from "./Login";
-import Register from "./Register";
-import Home from "./Home";
-import Dashboard from "./Dashboard";
+import "./styles/index.css";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Home from "./components/Home";
+import Dashboard from "./components/Dashboard";
 
 import { Route, BrowserRouter as Router } from "react-router-dom";
-import history from "./History";
+import history from "./services/History";
 import { Provider } from "react-redux";
 import { createAppStore } from "./Redux";
 

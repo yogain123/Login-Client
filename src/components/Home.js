@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import qp from "query-parse";
 import { connect } from "react-redux";
-import { LogoutAction } from "./Redux/LoginAction";
+import { LogoutAction } from "../Redux/Actions/LoginAction";
+
 class Home extends Component {
   state = { logout: "Log Out" };
   componentDidMount() {
@@ -17,10 +19,11 @@ class Home extends Component {
   }
 
   render() {
+    let query = qp.toObject(this.props.location.search.substring(1));
     return (
       <>
-        <div class="container" style={{ marginTop: "50px" }}>
-          <div>This is Dashboard</div>
+        <div class="container" style={{ marginTop: "20px" }}>
+          <div>This is Home Page, Welcome {query.email}</div>
           <button
             style={{ marginTop: "20px" }}
             type="button"

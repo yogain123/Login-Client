@@ -1,6 +1,6 @@
 import axios from "axios";
 //import history from "../History";
-import { STATIC_URL } from "../config";
+import { STATIC_URL } from "../../config";
 export function LoginAction(email, password, callback1, callback2) {
   return async function(dispatch) {
     let reqData = { email, password };
