@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { LoginAction } from "../Redux/Actions/LoginAction";
+import { LoginAction } from "../redux/Actions/LoginAction";
 import { connect } from "react-redux";
 import qp from "query-parse";
 

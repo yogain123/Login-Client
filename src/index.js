@@ -9,7 +9,7 @@ import Dashboard from "./components/Dashboard";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import history from "./services/History";
 import { Provider } from "react-redux";
-import { createAppStore } from "./Redux";
+import { createAppStore } from "./redux";
 
 const routing = (
   <Provider store={createAppStore()}>
