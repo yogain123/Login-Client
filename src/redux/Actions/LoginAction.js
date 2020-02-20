@@ -1,5 +1,5 @@
 import axios from "axios";
-//import history from "../History";
+import history from "../../services/History";
 import { STATIC_URL } from "../../config";
 export function LoginAction(email, password, callback1, callback2) {
   return async function(dispatch) {
@@ -13,8 +13,7 @@ export function LoginAction(email, password, callback1, callback2) {
       localStorage.setItem("apiKey", res.data.apiKey);
       callback1();
     } else {
-      callback2();
-      alert("Wrong Credentials");
+      history.push("/StreamDelete");
     }
   };
 }
@@ -34,7 +33,7 @@ export function LogoutAction(callback) {
       localStorage.removeItem("apiKey");
       callback();
     } else {
-      alert("Something went wrong");
+      history.push("/StreamDelete");
     }
   };
 }

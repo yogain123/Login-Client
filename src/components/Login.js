@@ -13,16 +13,9 @@ class Login extends Component {
     this.setState({ submit: <div class="spinner-border"></div> });
     let query = qp.toObject(this.props.location.search.substring(1));
     let pathing = query.preserved || `/home?email=${this.state.email}`;
-    this.props.LoginAction(
-      this.state.email,
-      this.state.password,
-      response => {
-        this.props.history.push(pathing);
-      },
-      () => {
-        this.setState({ submit: "Log Out" });
-      }
-    );
+    this.props.LoginAction(this.state.email, this.state.password, response => {
+      this.props.history.push(pathing);
+    });
   }
 
   componentDidMount() {

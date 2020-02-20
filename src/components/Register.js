@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { STATIC_URL } from "../config";
+import history from "../services/History";
 
 class Register extends Component {
   state = { register: "Register", email: "", password: "", name: "" };
@@ -25,7 +26,7 @@ class Register extends Component {
       this.props.history.push("/");
     } else {
       this.setState({ register: "Register" });
-      alert("Something went wrong");
+      history.push("/StreamDelete");
     }
   }
 
