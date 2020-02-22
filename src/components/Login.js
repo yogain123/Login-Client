@@ -3,11 +3,14 @@ import { Link } from "react-router-dom";
 import { LoginAction } from "../redux/Actions/LoginAction";
 import { connect } from "react-redux";
 import qp from "query-parse";
+import { useAuth0 } from "../react-auth0-spa";
+
 function Login(props) {
   const [submit, setSubmit] = useState("Submit");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const emailRef = React.createRef();
+  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
   const onSubmit = event => {
     event.preventDefault();
@@ -85,6 +88,18 @@ function Login(props) {
                   >
                     {submit}
                   </button>
+                  <br />
+                  <br />
+                  <button
+                    type="button"
+                    name="submit"
+                    className="btn btn-info btn-md"
+                    onClick={() => {
+                      loginWithRedirect({});
+                    }}
+                  >
+                    Auth0
+                  </button>
                 </div>
                 <div id="register-link" className="text-right">
                   <Link to="/Register" className="text-info">
@@ -95,6 +110,7 @@ function Login(props) {
             </div>
           </div>
         </div>
+        <div></div>
       </div>
     </div>
   );
